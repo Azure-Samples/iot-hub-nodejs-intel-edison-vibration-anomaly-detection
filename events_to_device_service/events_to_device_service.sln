@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "events_to_device_service", "events_to_device_service\events_to_device_service.ccproj", "{D8E26E73-CAE5-40D8-A3B1-1F78709B01AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "events_forwarding", "events_forwarding\events_forwarding.csproj", "{A42F9431-0693-4A99-9DE6-0B4654D7350A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8E26E73-CAE5-40D8-A3B1-1F78709B01AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8E26E73-CAE5-40D8-A3B1-1F78709B01AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8E26E73-CAE5-40D8-A3B1-1F78709B01AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8E26E73-CAE5-40D8-A3B1-1F78709B01AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A42F9431-0693-4A99-9DE6-0B4654D7350A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A42F9431-0693-4A99-9DE6-0B4654D7350A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A42F9431-0693-4A99-9DE6-0B4654D7350A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A42F9431-0693-4A99-9DE6-0B4654D7350A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
