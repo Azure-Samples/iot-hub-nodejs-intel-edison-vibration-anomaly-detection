@@ -1,3 +1,9 @@
+---
+services: iot-hub, stream-analytics, event-hubs
+platforms: nodejs, javascript, intel-edison
+author: olivierbloch
+---
+
 # Tweet vibration anomalies detected by Azure IoT services on data from an Intel Edison running Node.js
 If you want to try out Azure IoT Hub and other Azure IoT services, this sample will walk you through the configuration of services and the setup of an Intel Edison running Node.js.
 The device will log vibration sensor data that will be analyzed by Stream Analytics and a worker role will send an alert message back to the device via IoT Hub as well as tweet the alert on twitter.
