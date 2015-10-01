@@ -1,17 +1,17 @@
 # Tweet vibration anomalies detected by Azure IoT services on data from an Intel Edison running Node.js
 If you want to try out Azure IoT Hub and other Azure IoT services, this sample will walk you through the configuration of services and the setup of an Intel Edison running Node.js.
-The device will log vibration sensor data that will be analyzed by 
+The device will log vibration sensor data that will be analyzed by Stream Analytics and a worker role will send an alert message back to the device via IoT Hub as well as tweet the alert on twitter.
 
 ## Running this sample
 ### Hardware prerequisites
 In order to run this sample you will need the following hardware:
 	- An [Intel Edison](http://www.intel.com/content/www/us/en/do-it-yourself/edison.html) board
-	- In the sample we are using the [Seeed Xadow wearable kit for Intel Edison](http://www.seeedstudio.com/depot/Xadow-Wearable-Kit-For-Intel-Edison-p-2428.html) but you can use another kit and sensor adapting the code for the device. These are the sensors and extensions we are using in the sample:
+	- In the sample we are using the [Seeed Xadow wearable kit for Intel Edison](http://www.seeedstudio.com/depot/Xadow-Wearable-Kit-For-Intel-Edison-p-2428.html) but you can use another kit and sensor adapting the code for the device.
+  - These are the sensors and extensions we are using in the sample (all included in the Seeed Xadow wearable kit mentioned above):
     - Xadow Expansion board
     - Xadow Programmer
     - Xadow 3-Axis accelerometer
     - Xadow OLED screen
-	- An USB Mini cable
 
 ### Software prerequisites
   - [Visual Studio 2015](https://www.visualstudio.com/)
@@ -21,7 +21,7 @@ In order to run this sample you will need the following hardware:
 ### Services setup
 In order to run the sample you will need to do the following:
   - Create an IoT hub that will receive data from devices and send commands and notifications back to it
-  - Create an Event hub into which we will post alerts triggered by the Stream Ananlytics job
+  - Create an Event hub into which we will post alerts triggered by the Stream Analytics job
   - Create a Stream Analytics job that will read data from the IoT hub and post alerts into the Event hub
   - Create a Storage account that will be used by the worker role
   - Deploy a simple worker role that will read alerts from the Event hub and tweet alerts on Twitter and forward alerts back to devices through the IoT hub
@@ -159,7 +159,7 @@ To build an deploy the worker role here are the few simple steps:
     <add key="Twitter.ConsumerSecret" value="<<Enter your Twitter consumer secret>>" />
     <add key="Twitter.AccessToken" value="<<Enter your Twitter access token>>" />
     <add key="Twitter.AccessSecret" value="<<Enter your Twitter access secret>>" />
-    <add key="AzureIoTHub.ConnectionString" value="[IoT Hub Connection String]" />
+    <add key="AzureIoTHub.ConnectionString" value="<<IoT Hub Connection String>>" />
     ```
 4. Compile the project and publish to Azure
 
