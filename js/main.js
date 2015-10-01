@@ -11,9 +11,12 @@ var font = require('oled-font-5x7');
 var oled;
 
 // Set the credentials for the event hub, where the data should be uploaded
-var connectionstring = 'HostName=tempanomalyolivier.azure-devices.net;DeviceId=inteledison;SharedAccessKey=t44wEWfkeAvFhakKB0viJSIlVXgkpFYapKX1VxhNu4I=';
-var deviceID = 'inteledison'; // must match the deviceID in the connection string
+  var connectionstring = '<<Enter your service bus namespace connection string here>>';
+  var deviceID = '<<Enter your deviceID>>'; // must match the deviceID in the connection string
 
+var messageFromIoTHub = "";
+var messageDisplayCounter = 0;
+ 
 // Helper functions
 var done = function (err) {
     console.log("DONE, error = " + err);
@@ -62,20 +65,35 @@ function oledDisplayValues(deviceid, x, y, z){
 
     oled.clearDisplay();
     
-    // display text
-    oled.setCursor(0, 0);
-    oled.writeString(font, 1, deviceid, 1, true);
+    if ((messageFromIoTHub != "") && (messageDisplayCounter < 5))
+    {
+        // Display message from IoTHub on screen
+        messageDisplayCounter++;
+        oledDrawCircles();
+    } else {
+        // Reset counter and message buffer
+        messageDisplayCounter = 0;
+        messageFromIoTHub = "";
 
-    oled.setCursor(0, 8);
-    oled.writeString(font, 1, "x=" + x , 1, true);
+        // Display actual data on screen
+        oled.setCursor(0, 0);
+        oled.writeString(font, 1, deviceid, 1, true);
 
-    oled.setCursor(0, 17);
-    oled.writeString(font, 1, "y=" + y , 1, true);
+        oled.setCursor(0, 8);
+        oled.writeString(font, 1, "connected to", 1, true);
 
-    oled.setCursor(0, 26);
-    oled.writeString(font, 1, "z=" + z , 1, true);
+        oled.setCursor(0, 17);
+        oled.writeString(font, 1, "Azure IoT Hub", 1, true);
     
+        oled.setCursor(0, 26);
+        oled.writeString(font, 1, "x=" + x , 1, true);
     
+        oled.setCursor(0, 36);
+        oled.writeString(font, 1, "y=" + y , 1, true);
+    
+        oled.setCursor(0, 47);
+        oled.writeString(font, 1, "z=" + z , 1, true);
+    }   
 }
 
 // instantiate the IoT Hub client and board
@@ -100,6 +118,7 @@ board.on("ready", function () {
         address: 0x3C
     };
  
+ 
     oled = new Oled(board, five, oledopts);
 
     oledInit();
@@ -115,7 +134,7 @@ board.on("ready", function () {
                         if (err) console.log('complete error: ' + err.toString());
                         if (res && (res.statusCode !== 204)) console.log('complete status: ' + res.statusCode + ' ' + res.statusMessage);
                     });
-                    oledDrawCircles();
+                    messageFromIoTHub = msg.getData();
                 }
                 else if (err)
                 {
