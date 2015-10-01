@@ -72,7 +72,7 @@ namespace events_forwarding
                     var service = new TwitterService(consumerKey, consumerSecret);
                     service.AuthenticateWith(accessToken, accessSecret);
                     SendTweetOptions x = new SendTweetOptions();
-                    x.Status = string.Format("{0} is flipped, position data: x={1}, y={2}, z={3}", newSensorEvent.deviceid, newSensorEvent.x, newSensorEvent.y, newSensorEvent.z);
+                    x.Status = string.Format("{0} was flipped on {1} UTC, position data: x={2}, y={3}, z={4}", newSensorEvent.deviceid, eventData.EnqueuedTimeUtc.ToString(), newSensorEvent.x, newSensorEvent.y, newSensorEvent.z);
                     service.SendTweet(x);
 
                 }

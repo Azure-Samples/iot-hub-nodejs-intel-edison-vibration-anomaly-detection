@@ -59,17 +59,24 @@ namespace events_forwarding
             string storageAccountString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}",
                 storageAccountName, storageAccountKey);
 
-            string iotHubConnectionString = ConfigurationManager.AppSettings["AzureIoTHub.ConnectionString"];
-            iotHubServiceClient = ServiceClient.CreateFromConnectionString(iotHubConnectionString);
-            eventHubClient = EventHubClient.CreateFromConnectionString(connectionString, eventHubName);
+            try
+            {
+                string iotHubConnectionString = ConfigurationManager.AppSettings["AzureIoTHub.ConnectionString"];
+                iotHubServiceClient = ServiceClient.CreateFromConnectionString(iotHubConnectionString);
+                eventHubClient = EventHubClient.CreateFromConnectionString(connectionString, eventHubName);
 
-            var defaultConsumerGroup = eventHubClient.GetDefaultConsumerGroup();
+                var defaultConsumerGroup = eventHubClient.GetDefaultConsumerGroup();
 
-            string eventProcessorHostName = "SensorEventProcessor";
-            EventProcessorHost eventProcessorHost = new EventProcessorHost(eventProcessorHostName, eventHubName, defaultConsumerGroup.GroupName, connectionString, storageAccountString);
-            eventProcessorHost.RegisterEventProcessorAsync<SensorEventProcessor>().Wait();
+                string eventProcessorHostName = "SensorEventProcessor";
+                EventProcessorHost eventProcessorHost = new EventProcessorHost(eventProcessorHostName, eventHubName, defaultConsumerGroup.GroupName, connectionString, storageAccountString);
+                eventProcessorHost.RegisterEventProcessorAsync<SensorEventProcessor>().Wait();
 
-            Trace.TraceInformation("Receiving events...\n");
+                Trace.TraceInformation("Receiving events...\n");
+            }
+            catch (Exception e)
+            {
+                Trace.TraceInformation("Error when starting worker role -- {0}\n", e.Message);
+            }
 
             return result;
         }
