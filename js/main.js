@@ -10,9 +10,9 @@ var Oled = require('oled-js');
 var font = require('oled-font-5x7');
 var oled;
 
-// Set the credentials for the event hub, where the data should be uploaded
-  var connectionstring = '<<Enter your service bus namespace connection string here>>';
-  var deviceID = '<<Enter your deviceID>>'; // must match the deviceID in the connection string
+// Set the connection string and device ID for the IoTHub connection
+var connectionstring = '<<Enter your device connection string>>';
+var deviceID = '<<Enter your deviceID>>'; // must match the deviceID in the connection string
 
 var messageFromIoTHub = "";
 var messageDisplayCounter = 0;

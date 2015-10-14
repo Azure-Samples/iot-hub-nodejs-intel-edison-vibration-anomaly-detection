@@ -20,7 +20,7 @@ In order to run this sample you will need the following hardware:
     - Xadow OLED screen
 
 ### Software prerequisites
-  - [Visual Studio 2015](https://www.visualstudio.com/)
+  - [Visual Studio 2015](https://www.visualstudio.com/) with [Azure SDK for .Net](http://go.microsoft.com/fwlink/?linkid=518003&clcid=0x409)
   - A Serial terminal, such as [PuTTY], so you monitor debug traces from the devices.
   - [Intel XDK](https://software.intel.com/en-us/intel-xdk)
 
@@ -78,10 +78,12 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 1. in the **Shared Access Policies** section, add a new policy:
   - Name = "readwrite"
   - Permissions = Send, Listen
-  
-1. Click **Save**, then go to the evnet hub **Dashboard** tab and click on **Connection Information** at the bottom
+
+1. Write down the **Primary Key** for the readwrite policy name
+
+1. Click **Save**, then go to the event hub **Dashboard** tab and click on **Connection Information** at the bottom
  
-1. Write down the connection string for the readwrite policy name as well as the **Primary Key** for the readwrite Plicy Name
+1. Write down the connection string for the readwrite policy name.
  
 #### Create a Stream Analytics job
 1. Log on to the [Azure Preview Portal].
@@ -136,22 +138,24 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 #### Create a storage account
 1. Log on to the [Azure Preview Portal].
 
-2. In the jumpbar, click **New** and select **Data + Storage** then **Storage Account**
+1. In the jumpbar, click **New** and select **Data + Storage** then **Storage Account**
 
-3. Choose **Classic** for the deployment model and click on **create**
+1. Choose **Classic** for the deployment model and click on **create**
 
-4. Enter the name of your choice (i.e. "*mystorageaccountname*" for the account name and select your resource group, subscription,... then click on "Create"
+1. Enter the name of your choice (i.e. "*mystorageaccountname*" for the account name and select your resource group, subscription,... then click on "Create"
 
-5. Once the account is created, find it in the resources blade and write down the primary connection string for it to configure the worker role
+1. Once the account is created, find it in the resources blade and write down the **Primary Key** for it as well as the storage account name you chose to configure the worker role
 
 #### Get a twitter app consumer and access information
 1. In a browser, go to https://apps.twitter.com/
 
-2. Login with your twitter account
+1. Login with your twitter account
 
-3. Click on "Create New App" button and follow instructions
+1. Click on "Create New App" button and follow instructions
 
-4. In the **Keys and Access Tokens** tab, read and write down the various keys and tokens
+1. Go to the **Keys and Access Tokens** tab and generate an access token and access token secret by clicking the "Generate My Access Token and Token Secret" button
+
+1. Write down the Consumer Key (API Key), Consumer Secret (API Secret), Access Token, and Access Token Secret.
 
 #### Deploy the worker role
 The sample uses a worker role to trigger alerts back on devices through IoT Hub.
@@ -159,9 +163,11 @@ To build an deploy the worker role here are the few simple steps:
 
 1. Clone the [repository](https://github.com/Azure-Samples/iot-hub-nodejs-intel-edison-vibration-anomaly-detection) on your machine (see the links  on top of this tutorial)
 
-2. Open the solution events_to_device_service\events_to_device_service.sln in Visual Studio 2015
+1. Note that the project depends on the [Azure SDK for .Net](http://go.microsoft.com/fwlink/?linkid=518003&clcid=0x409). If you have not done so yet, install the SDK.
 
-3. open the file app.config and replace the fields below with the connection strings from the Event Hub, the IoT Hub, the storage account and your Twitter account
+1. Open the solution events_to_device_service\events_to_device_service.sln in Visual Studio 2015
+
+1. Open the file app.config and replace the fields below with the connection strings from the Event Hub, the IoT Hub, the storage account and your Twitter account
 
     ```
     <add key="Microsoft.ServiceBus.ConnectionString" value="<<Enter your EH connection string>>" />
@@ -174,7 +180,9 @@ To build an deploy the worker role here are the few simple steps:
     <add key="Twitter.AccessSecret" value="<<Enter your Twitter access secret>>" />
     <add key="AzureIoTHub.ConnectionString" value="<<IoT Hub Connection String>>" />
     ```
-4. Compile the project and publish to Azure
+4. Compile the project
+
+5. From here you can whether run the service locally or publish it on Azure. To run locally, right click on the **events_to_device_service** project and select "Set As Startup Project" then hit F5. To publish to Azure, right click on the **events_to_device_service** project, select "Publish..." and follow the prompts.  
 
 #### Create a new device identity in the IoT Hub
 To connect your device to the IoT Hub instance, you need to generate a unique identity and connection string. IoT Hub does that for you.
@@ -245,11 +253,10 @@ The first one is to use the Intel XDK IDE, while the second one uses a simple de
   ```
 1. In order to use the deployment script, you need to install [PuTTY] as the file transfer uses PuTTY SCP, one of the tools coming with the full install of PuTTY. You can consider adapting the script if you prefer using a different SSH client and SCP tool.
 
-1. Connect your Intel Edison to your development machine over USB (see [Intel Edison getting started instructions](http://www.intel.com/content/www/us/en/do-it-yourself/edison.html))
+1. Connect your Intel Edison to your development machine over USB (see [Intel Edison getting started instructions](https://software.intel.com/en-us/iot/library/edison-getting-started))
 
-1. Determine which COM port the device is showing up as on your development machine.
-  - On Windows, open a command prompt and type ```mode```.
-  - On Unix systems, open a shell and type [TODO: INSERT COMMAND HERE FOR LINUX]
+1. Determine which COM port the device is showing up as on your development machine. Open a command prompt and type the following command
+    ```mode```
   
 1. Connect PuTTY to the COM port for the device at 115200 Bauds.
 
