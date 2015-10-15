@@ -256,13 +256,16 @@ The first one is to use the Intel XDK IDE, while the second one uses a simple de
 1. Connect your Intel Edison to your development machine over USB (see [Intel Edison getting started instructions](https://software.intel.com/en-us/iot/library/edison-getting-started))
 
 1. Determine which COM port the device is showing up as on your development machine. Open a command prompt and type the following command
+
     ```mode```
   
 1. Connect PuTTY to the COM port for the device at 115200 Bauds.
 
 1. Type in user name **root** and your device's password. Note that in order for the SCP tool to work, you need to device to be password protected. If you want to set a password for the user, type the following command in the Serial Terminal prompt: ```passwd```
 
-1. Retreive the device's IP address typing ```ifconfig``` in the serial termninal.
+1. Retreive the device's IP address typing the below command in the serial termninal.
+
+    ```ifconfig``` 
 
 1. Open the /js/tools/deploy.cmd script and edit the **board_ip**, and **board_pw** values with your device's IP address and password
 
