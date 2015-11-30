@@ -3,7 +3,7 @@
   <Role name="events_forwarding">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=accellerometer2pbi;AccountKey=cRy+ntJtgJwhvhMx2MDCeIrMDpGaPWO/NO9rD82BOpggUo17kTCXNW8cl1FY7nhIv/ouHcVuv/Blumr65T+Xqg==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=<storageaccountname>;AccountKey=<key>" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
