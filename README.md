@@ -40,7 +40,7 @@ In order to run the sample you will need to do the following (directions for eac
 1. In the **New IoT Hub** blade, specify the desired configuration for the IoT Hub.
   - In the **Name** box, enter a name to identify your IoT hub such as *myiothubname*. When the **Name** is validated, a green check mark appears in the **Name** box.
   - Change the **Pricing and scale tier** as desired. This tutorial does not require a specific tier.
-  - In the **Resource group** box, create a new resource group, or select and existing one. For more information, see [Using resource groups to manage your Azure resources](resource-group-portal.md).
+  - In the **Resource group** box, create a new resource group, or select and existing one. For more information, see [Using resource groups to manage your Azure resources](https://azure.microsoft.com/en-us/documentation/articles/resource-group-portal/).
   - Use **Location** to specify the geographic location in which to host your IoT hub.  
 
 1. Once the new IoT hub options are configured, click **Create**.  It can take a few minutes for the IoT hub to be created.  To check the status, you can monitor the progress on the Startboard. Or, you can monitor your progress from the Notifications section.
