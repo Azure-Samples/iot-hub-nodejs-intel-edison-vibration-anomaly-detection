@@ -7,8 +7,8 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "azure-iot-device": "latest",
-    "async":"^1.4.2",
+    "azure-iot-device": "^1.0.1",
+    "azure-iot-device-http": "^1.0.1",
     "johnny-five": "^0.8.91",
     "edison-io": "^0.8.18",
     "oled-js": "^3.1.1",
