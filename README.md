@@ -41,7 +41,7 @@ In order to run the sample you will need to do the following (directions for eac
 	  - In the **Name** box, enter a name to identify your IoT hub such as *myiothubname*. When the **Name** is validated, a green check mark appears in the **Name** box.
 	  - Change the **Pricing and scale tier** as desired. This tutorial does not require a specific tier.
 	  - In the **Resource group** box, create a new resource group, or select and existing one. For more information, see [Using resource groups to manage your Azure resources](https://azure.microsoft.com/en-us/documentation/articles/resource-group-portal/).
-	  - Use **Location** to specify the geographic location in which to host your IoT hub.  
+	  - Use **Location** to specify the geographic location in which to host your IoT hub.
 
 1. Once the new IoT hub options are configured, click **Create**.  It can take a few minutes for the IoT hub to be created.  To check the status, you can monitor the progress on the Startboard. Or, you can monitor your progress from the Notifications section.
 
@@ -55,7 +55,7 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
   - From the Messaging blade (found in the settings blade), write down the **Event Hub-compatible name**
   - Look at the **Event-hub-compatible Endpoint**, and write down this part: sb://**thispart**.servicebus.windows.net/ we will call this one the **IoTHub EventHub-compatible namespace**
   - For the key, you will need the **Primary Key** read in step #6
-    
+
 #### Create an Event Hub
 1. Log on to the [Azure Management Portal].
 
@@ -64,27 +64,27 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 1. Select **App Services**, **Service Bus**, **Event Hub**, **Quick Create**
 
 1. Enter the following settings for the Event Hub (use a name of your choice for the event hub and the namespace):
-  - Event Hub Name: "*myeventhubname*"
-  - Region: your choice
-  - Subscription: your choice
-  - Namespace Name: "*mynamespacename-ns*"
-  
+    - Event Hub Name: "*myeventhubname*"
+    - Region: your choice
+    - Subscription: your choice
+    - Namespace Name: "*mynamespacename-ns*"
+
 1. Click on **Create a new Event Hub**
- 
+
 1. Select the *mynamespacename-ns* and go in the **Event Hub** tab
- 
+
 1. Select the *myeventhubname* event hub and go in the **Configure** tab
- 
+
 1. in the **Shared Access Policies** section, add a new policy:
-  - Name = "readwrite"
-  - Permissions = Send, Listen
+    - Name = "readwrite"
+    - Permissions = Send, Listen
 
 1. Write down the **Primary Key** for the readwrite policy name
 
 1. Click **Save**, then go to the event hub **Dashboard** tab and click on **Connection Information** at the bottom
- 
+
 1. Write down the connection string for the readwrite policy name.
- 
+
 #### Create a Stream Analytics job
 1. Log on to the [Azure Preview Portal].
 
@@ -95,38 +95,38 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 1. Once the job is created, click on the **Inputs** tile in the **job topology** section. In the **Inputs blade**, click on **Add**
 
 1. Enter the following settings:
-  - Input Alias = "accel"
-  - Type = "Data Stream"
-  - Source = "IoT Hub"
-  - IoT Hub = "*myiothubname*" (use the name for the IoT Hub you create before
-  - Shared Access Policy Name = "iothubowner"
-  - Shared Access Policy Key = "**iothubowner Primary Key**" (That's the key you wrote down when creating the IoT Hub)
-  - IoT Hub Consumer Group = "" (leave it to the default empty value)
-  - Event serialization format = "JSON"
-  - Encoding = "UTF-8"
+    - Input Alias = "accel"
+    - Type = "Data Stream"
+    - Source = "IoT Hub"
+    - IoT Hub = "*myiothubname*" (use the name for the IoT Hub you create before
+    - Shared Access Policy Name = "iothubowner"
+    - Shared Access Policy Key = "**iothubowner Primary Key**" (That's the key you wrote down when creating the IoT Hub)
+    - IoT Hub Consumer Group = "" (leave it to the default empty value)
+    - Event serialization format = "JSON"
+    - Encoding = "UTF-8"
 
 1. Back to the Stream Analytics Job blade, click on the **Query** tile. In the Query settings blade, type in the below query and click **Save**
 
-  ```sql
-  SELECT * INTO accel4twitter 
-  FROM accel
-  WHERE (accel.z < 0)
-  ```
+    ```sql
+    SELECT * INTO accel4twitter
+    FROM accel
+    WHERE (accel.z < 0)
+    ```
 
 1. Back to the Stream Analytics Job blade, click on the **Outputs** tile and in the Outputs blade, click on **Add**
 
 1. Enter the following settings then click on **create**:
-  - Output Alias = "accel4twitter"
-  - Source = "Event Hub"
-  - Service Bus Namespace = "*mynamespacename-ns*
-  - Event Hub Name = "*myeventhubname*"
-  - Event Hub Policy Name = "readwrite"
-  - Event Hub Policy Key = "*Primary Key for readwrite Policy name*" (That's the one you wrote down after creating the event hub)
-  - Partition Key Column = "4"
-  - Event Serialization format = "JSON"
-  - Encoding = "UTF-8"
-  - Format = "Line separated"
-  
+    - Output Alias = "accel4twitter"
+    - Source = "Event Hub"
+    - Service Bus Namespace = "*mynamespacename-ns*
+    - Event Hub Name = "*myeventhubname*"
+    - Event Hub Policy Name = "readwrite"
+    - Event Hub Policy Key = "*Primary Key for readwrite Policy name*" (That's the one you wrote down after creating the event hub)
+    - Partition Key Column = "4"
+    - Event Serialization format = "JSON"
+    - Encoding = "UTF-8"
+    - Format = "Line separated"
+
 1. Back in the Stream Analytics blade, start the job by clicking on the **Start** button at the top
 
 #### Create a storage account
@@ -174,10 +174,10 @@ To build an deploy the worker role here are the few simple steps:
     <add key="Twitter.AccessSecret" value="<<Enter your Twitter access secret>>" />
     <add key="AzureIoTHub.ConnectionString" value="<<IoT Hub Connection String>>" />
     ```
- 
+
 1. Compile the project
 
-1. From here you can whether run the service locally or publish it on Azure. To run locally, right click on the **events_to_device_service** project and select "Set As Startup Project" then hit F5. To publish to Azure, right click on the **events_to_device_service** project, select "Publish..." and follow the prompts.  
+1. From here you can whether run the service locally or publish it on Azure. To run locally, right click on the **events_to_device_service** project and select "Set As Startup Project" then hit F5. To publish to Azure, right click on the **events_to_device_service** project, select "Publish..." and follow the prompts.
 
 #### Create a new device identity in the IoT Hub
 To connect your device to the IoT Hub instance, you need to generate a unique identity and connection string. IoT Hub does that for you.
@@ -192,13 +192,13 @@ To create a new device identity, you have the following options:
     ```
 
   - You can type the following to learn more about the tool
-  
+
     ```bash
     iothub-explorer help
     ```
-  
+
   - Type the following commands to create a new device identity (replace <connectionstring> in the commands with the connection string for the **iothubowner** that you retreive previously in the portal.
-  
+
     ```bash
     iothub-explorer <connectionstring> create mydevice --connection-string
     ```
@@ -227,12 +227,14 @@ The first one is to use the Intel XDK IDE, while the second one uses a simple de
 
 1. In the main.js file, search for the below code and replace the connection string and DeviceID placeholders with your IoTHub connection string for the device you created in it and the DeviceID
 
-  ```javascript
-  // Set the credentials for the event hub, where the data should be uploaded
-  var connectionstring = '<<Enter your service bus namespace connection string here>>';
-  var deviceID = '<<Enter your deviceID>>'; // must match the deviceID in the connection string
-  ```
-  
+    ```javascript
+    // Set the credentials for the event hub, where the data should be uploaded
+    var connectionstring = '<<Enter your service bus namespace connection string here>>';
+
+     // must match the deviceID in the connection string
+    var deviceID = '<<Enter your deviceID>>';
+    ```
+
 1. In the Intel XDK tool, compile the project (using the icon with a hammer in it) then click on the Play button to start runnig the app on the device
 
 ### Deploy the app using the Windows batch script
@@ -246,29 +248,30 @@ The first one is to use the Intel XDK IDE, while the second one uses a simple de
   var connectionstring = '<<Enter your service bus namespace connection string here>>';
   var deviceID = '<<Enter your deviceID>>'; // must match the deviceID in the connection string
   ```
-  
+
 1. In order to use the deployment script, you need to install [PuTTY] as the file transfer uses PuTTY SCP, one of the tools coming with the full install of PuTTY. You can consider adapting the script if you prefer using a different SSH client and SCP tool.
 
 1. Connect your Intel Edison to your development machine over USB (see [Intel Edison getting started instructions](https://software.intel.com/en-us/iot/library/edison-getting-started))
 
 1. Determine which COM port the device is showing up as on your development machine. Open a command prompt and type the following command:
 
-  ```bash
-  mode
-  ```
+    ```bash
+    mode
+    ```
 
 1. Connect PuTTY to the COM port for the device at 115200 Bauds.
 
-1. Type in user name **root** and your device's password. Note that in order for the SCP tool to work, you need to device to be password protected. If you want to set a password for the user, type the following command in the Serial Terminal prompt: 	
-  ```bash
-  passwd
-  ```
+1. Type in user name **root** and your device's password. Note that in order for the SCP tool to work, you need to device to be password protected. If you want to set a password for the user, type the following command in the Serial Terminal prompt:
+
+    ```bash
+    passwd
+    ```
 
 1. Retreive the device's IP address typing the below command in the serial termninal.
 
-  ```bash
-  ifconfig
-  ``` 
+    ```bash
+    ifconfig
+    ```
 
 1. Open the /js/tools/deploy.cmd script and edit the **board_ip**, and **board_pw** values with your device's IP address and password
 
@@ -276,15 +279,15 @@ The first one is to use the Intel XDK IDE, while the second one uses a simple de
 
 1. Once the application is deployed, you can whether reboot the device, or type the following commands in the serial terminal:
 
-  ```bash
-  cd /node_app_slot
-  node .
-  ```
+    ```bash
+    cd /node_app_slot
+    node .
+    ```
 
 ### App is now running on the device!
 At this point  your device is connected to IoT Hub and sends telemetry data.
 The Stream Analytics Job will detect when the acceleration.z value is negative and will post an alert in the event hub.
-The worker role will pick up the alerts, will notify the device that an alert was triggered and will tweet the alert. 
+The worker role will pick up the alerts, will notify the device that an alert was triggered and will tweet the alert.
 
 ## More information
 To learn more about Azure IoT Hub check out the [Azure IoT Dev center].
