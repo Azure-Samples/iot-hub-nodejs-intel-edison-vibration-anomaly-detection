@@ -38,10 +38,10 @@ In order to run the sample you will need to do the following (directions for eac
 1. In the jumpbar, click **New**, then click **Internet of Things**, and then click **IoT Hub**.
 
 1. In the **New IoT Hub** blade, specify the desired configuration for the IoT Hub.
-  - In the **Name** box, enter a name to identify your IoT hub such as *myiothubname*. When the **Name** is validated, a green check mark appears in the **Name** box.
-  - Change the **Pricing and scale tier** as desired. This tutorial does not require a specific tier.
-  - In the **Resource group** box, create a new resource group, or select and existing one. For more information, see [Using resource groups to manage your Azure resources](https://azure.microsoft.com/en-us/documentation/articles/resource-group-portal/).
-  - Use **Location** to specify the geographic location in which to host your IoT hub.  
+	  - In the **Name** box, enter a name to identify your IoT hub such as *myiothubname*. When the **Name** is validated, a green check mark appears in the **Name** box.
+	  - Change the **Pricing and scale tier** as desired. This tutorial does not require a specific tier.
+	  - In the **Resource group** box, create a new resource group, or select and existing one. For more information, see [Using resource groups to manage your Azure resources](https://azure.microsoft.com/en-us/documentation/articles/resource-group-portal/).
+	  - Use **Location** to specify the geographic location in which to host your IoT hub.  
 
 1. Once the new IoT hub options are configured, click **Create**.  It can take a few minutes for the IoT hub to be created.  To check the status, you can monitor the progress on the Startboard. Or, you can monitor your progress from the Notifications section.
 
@@ -107,16 +107,10 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 
 1. Back to the Stream Analytics Job blade, click on the **Query** tile. In the Query settings blade, type in the below query and click **Save**
 
-  ```
-  SELECT
-    *
-  INTO
-    accel4twitter
-  FROM
-    accel
-  WHERE
-    (accel.z < 0)
-
+  ```sql
+  SELECT * INTO accel4twitter 
+  FROM accel
+  WHERE (accel.z < 0)
   ```
 
 1. Back to the Stream Analytics Job blade, click on the **Outputs** tile and in the Outputs blade, click on **Add**
@@ -180,9 +174,10 @@ To build an deploy the worker role here are the few simple steps:
     <add key="Twitter.AccessSecret" value="<<Enter your Twitter access secret>>" />
     <add key="AzureIoTHub.ConnectionString" value="<<IoT Hub Connection String>>" />
     ```
-4. Compile the project
+ 
+1. Compile the project
 
-5. From here you can whether run the service locally or publish it on Azure. To run locally, right click on the **events_to_device_service** project and select "Set As Startup Project" then hit F5. To publish to Azure, right click on the **events_to_device_service** project, select "Publish..." and follow the prompts.  
+1. From here you can whether run the service locally or publish it on Azure. To run locally, right click on the **events_to_device_service** project and select "Set As Startup Project" then hit F5. To publish to Azure, right click on the **events_to_device_service** project, select "Publish..." and follow the prompts.  
 
 #### Create a new device identity in the IoT Hub
 To connect your device to the IoT Hub instance, you need to generate a unique identity and connection string. IoT Hub does that for you.
@@ -192,19 +187,19 @@ To create a new device identity, you have the following options:
   - For this one, you need to have node installed on your machine (https://nodejs.org/en/)
   - Once node is installed, in a command shell, type the following commands:
 
-    ```
+    ```bash
     npm install -g iothub-explorer
     ```
 
   - You can type the following to learn more about the tool
   
-    ```
+    ```bash
     iothub-explorer help
     ```
   
   - Type the following commands to create a new device identity (replace <connectionstring> in the commands with the connection string for the **iothubowner** that you retreive previously in the portal.
   
-    ```
+    ```bash
     iothub-explorer <connectionstring> create mydevice --connection-string
     ```
 
@@ -232,7 +227,7 @@ The first one is to use the Intel XDK IDE, while the second one uses a simple de
 
 1. In the main.js file, search for the below code and replace the connection string and DeviceID placeholders with your IoTHub connection string for the device you created in it and the DeviceID
 
-  ```
+  ```javascript
   // Set the credentials for the event hub, where the data should be uploaded
   var connectionstring = '<<Enter your service bus namespace connection string here>>';
   var deviceID = '<<Enter your deviceID>>'; // must match the deviceID in the connection string
@@ -246,7 +241,7 @@ The first one is to use the Intel XDK IDE, while the second one uses a simple de
 
 1. In the js/main.js file, search for the below code and replace the connection string and DeviceID placeholders with your IoTHub connection string for the device you created in it and the DeviceID
 
-  ```
+  ```javascript
   // Set the credentials for the event hub, where the data should be uploaded
   var connectionstring = '<<Enter your service bus namespace connection string here>>';
   var deviceID = '<<Enter your deviceID>>'; // must match the deviceID in the connection string
@@ -258,20 +253,20 @@ The first one is to use the Intel XDK IDE, while the second one uses a simple de
 
 1. Determine which COM port the device is showing up as on your development machine. Open a command prompt and type the following command:
 
-  ```
+  ```bash
   mode
   ```
 
 1. Connect PuTTY to the COM port for the device at 115200 Bauds.
 
 1. Type in user name **root** and your device's password. Note that in order for the SCP tool to work, you need to device to be password protected. If you want to set a password for the user, type the following command in the Serial Terminal prompt: 	
-  ```
+  ```bash
   passwd
   ```
 
 1. Retreive the device's IP address typing the below command in the serial termninal.
 
-  ```
+  ```bash
   ifconfig
   ``` 
 
@@ -281,7 +276,7 @@ The first one is to use the Intel XDK IDE, while the second one uses a simple de
 
 1. Once the application is deployed, you can whether reboot the device, or type the following commands in the serial terminal:
 
-  ```
+  ```bash
   cd /node_app_slot
   node .
   ```
